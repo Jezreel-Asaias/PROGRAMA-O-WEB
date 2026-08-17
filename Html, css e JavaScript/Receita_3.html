@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 60px;
+  }
+
+  #botaoCarregar {
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+
+  #meu-amor {
+    margin-top: 30px;
+    transition: opacity 0.5s ease;
+    opacity: 1;
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- Exercício 1: botão está num div diferente do div que
+       exibe o nome da cerveja, então nunca é sobrescrito -->
+  <div id="botaoDiv">
+    <button id="botaoCarregar">Carregar cerveja</button>
+  </div>
+
+  <div id="meu-amor"></div>
+
+  <script>
+    // Exercício 2: essa variável guarda o estado atual (mostrando ou não).
+
+    let mostrando = false
+
+    const TEMPO_FADE = 500
+
+    function carregarDiv(){
+      let div = document.getElementById("meu-amor")
+
+      // Exercício 3: primeiro fazemos fade out (opacidade -> 0)
+      div.style.opacity = 0
+
+      setTimeout(() => {
+        if (!mostrando) {
+          div.innerHTML = `<h1>Guinness</h1>`
+          mostrando = true
+        } else {
+          div.innerHTML = ``
+          mostrando = false
+        }
+        div.style.opacity = 1
+      }, TEMPO_FADE)
+    }
+
+    let botao = document.getElementById("botaoCarregar")
+    botao.addEventListener("click", carregarDiv)
+  </script>
+
+</html>
