@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" href="estilo.css">
+   </head>
+   <body>
+      <div id="meuAmor"><a href="#" id="linkCarregar">Carregando sorvetes...</a></div>
+      <a href="#" id="linkOrdenar">Mostrar sorvetes ordenados</a>
+      <a href="#" id="linkEmbaralhar">Embaralhar sorvetes</a>
+
+      <script>
+         let sorvetes = ["Flocos", "Ninho com Nutella", "Morango", "Napolitano"]
+
+         const transformarLinha = item => `<tr><td>${item}</td></tr>`
+
+         const renderizarTabela = (cervs) => {
+            const div = document.getElementById("meuAmor")
+            const linhasHtml = cervs.map(transformarLinha)
+            div.innerHTML = `
+               <table>
+                  <thead>
+                     <tr><th>Sorvete</th></tr>
+                  </thead>
+                  <tbody>
+                     ${linhasHtml.join("\n")}
+                  </tbody>
+               </table>
+            `
+         }
+
+         const carregarDiv = (cervs) => {
+            renderizarTabela(cervs)
+         }
+
+         const ordenarSorvetes = () => {
+            sorvetes.sort()
+            renderizarTabela(sorvetes)
+         }
+
+         const embaralharSorvetes = () => {
+            sorvetes.sort(() => Math.random() - 0.5)
+            renderizarTabela(sorvetes)
+         }
+
+         const linkCarregar = document.getElementById("linkCarregar")
+         linkCarregar.addEventListener("click", () => carregarDiv(sorvetes))
+
+         const linkOrdenar = document.getElementById("linkOrdenar")
+         linkOrdenar.addEventListener("click", ordenarSorvetes)
+
+         const linkEmbaralhar = document.getElementById("linkEmbaralhar")
+         linkEmbaralhar.addEventListener("click", embaralharSorvetes)
+      </script>
+   </body>
+</html>
