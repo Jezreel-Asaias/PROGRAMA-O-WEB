@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Receita promise</title>
+</head>
+<body>
+<div><button id="botaoCarregar">Carregar cervejarias</button></div>
+<div id="cervejasDiv"></div>
+</body>
+
+<script>
+const URL_API = "https://api.openbrewerydb.org/v1/breweries/random?size=3"
+
+let cervejas = []
+const carregarDiv = cs => {
+    const div = document.getElementById("cervejasDiv")
+    const itensHtml = cs.map( ({name, brewery_type, city}) => `<div>${name} -- ${brewery_type} (${city})</div>` )
+    div.innerHTML = `${itensHtml.join("\n")}`
+}
+
+async function carregarCervejas(){
+    try{
+        let res = await fetch(URL_API)
+        if (!res.ok) {
+            throw new Error(`Erro HTTP ${res.status}`)
+        }
+        cervejas = await res.json()
+        carregarDiv(cervejas)
+    }catch(err){
+        document.getElementById("cervejasDiv").innerHTML = `Erro ao carregar... ${err}`
+    }
+}
+
+function carregarCervejas2(){
+    fetch(URL_API).then(
+        res => {
+            if (!res.ok) {
+                throw new Error(`Erro HTTP ${res.status}`)
+            }
+            return res.json()
+        }
+    ).then(
+        json => carregarDiv(json)
+    ).catch(
+        err => document.getElementById("cervejasDiv").innerHTML = `Erro ao carregar... ${err}`
+    )
+    document.getElementById("cervejasDiv").innerHTML = `Fazendo requisição`
+}
+
+let botao = document.getElementById("botaoCarregar")
+botao.addEventListener("click", () => carregarCervejas2() )
+</script>
+</html>
