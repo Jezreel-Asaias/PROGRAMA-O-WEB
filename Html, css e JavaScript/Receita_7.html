@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Receita json5 - fetch</title>
+</head>
+<body>
+<div><button id="botaoCarregar">Carregar usuários</button></div>
+<div id="usuariosDiv"></div>
+</body>
+
+<script>
+let usuarios = []
+const carregarDiv = us => {
+    const div = document.getElementById("usuariosDiv")
+    const itensHtml = us.map( ({name, email}) => `<div>${name} -- ${email}</div>` )
+    div.innerHTML = `${itensHtml.join("\n")}`
+}
+
+async function carregarUsuarios(){
+    const div = document.getElementById("usuariosDiv")
+    try{
+        let res = await fetch("https://jsonplaceholder.typicode.com/users?_limit=3")
+        if (!res.ok) {
+            throw new Error(`Erro HTTP ${res.status}`)
+        }
+        usuarios = await res.json()
+        if (usuarios.length === 0) {
+            div.innerHTML = "Nenhum usuário encontrado."
+            return
+        }
+        carregarDiv(usuarios)
+    }catch(err){
+        div.innerHTML = "Erro ao carregar os dados."
+        console.error(err)
+    }
+}
+
+let botao = document.getElementById("botaoCarregar")
+botao.addEventListener("click", () => carregarUsuarios() )
+</script>
+</html>
