@@ -1,38 +1,128 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>React - Tabela com createElement</title> 
+      <title>React Um - Tabela de Bebidas</title>
+      <style>
+         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+         }
+         .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+         }
+         h1 {
+            color: #333;
+            margin-bottom: 20px;
+         }
+         button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 20px;
+         }
+         button:hover {
+            background-color: #45a049;
+         }
+         table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+         }
+         th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+         }
+         th {
+            background-color: #f8f9fa;
+            color: #555;
+            font-weight: 600;
+         }
+         tr:hover {
+            background-color: #f1f1f1;
+         }
+      </style>
    </head>
    <body>
       <div id="app"></div>
 
+      <!-- Importação das bibliotecas -->
       <script src="libs/react.js"></script>
       <script src="libs/react-dom.js"></script>
-      
-      <script>
-         const tabela = React.createElement('table', { border: '1', style: { width: '100%', textAlignment: 'left' } }, [
-            React.createElement('thead', { key: 'head' }, 
-               React.createElement('tr', null, [
-                  React.createElement('th', { key: 'h1' }, 'Nome'),
-                  React.createElement('th', { key: 'h2' }, 'Cargo'),
-                  React.createElement('th', { key: 'h3' }, 'Tecnologia')
-               ])
-            ),
-            React.createElement('tbody', { key: 'body' }, [
-               React.createElement('tr', { key: 'r1' }, [
-                  React.createElement('td', { key: 'c1' }, 'Maria Silva'),
-                  React.createElement('td', { key: 'c2' }, 'Desenvolvedora Frontend'),
-                  React.createElement('td', { key: 'c3' }, 'React')
-               ]),
-               React.createElement('tr', { key: 'r2' }, [
-                  React.createElement('td', { key: 'c4' }, 'João Santos'),
-                  React.createElement('td', { key: 'c5' }, 'Desenvolvedor Backend'),
-                  React.createElement('td', { key: 'c6' }, 'Node.js')
-               ])
-            ])
-         ]);
+      <script src="libs/babel.js"></script>
 
-         ReactDOM.render(tabela, document.getElementById('app'));
+      <script type="text/babel">
+         // 3. Componente de Cabeçalho
+         function Cabecalho() {
+            return <h1>Minha tabela de bebidas</h1>;
+         }
+
+         // 1 e 4. Componente Principal
+         function TabelaBebidas() {
+            // Estado para controlar a exibição da tabela após o clique
+            const [exibir, setExibir] = React.useState(false);
+
+            // 4. Array fixo de objetos JSON
+            const bebidas = [
+               { id: 1, nome: 'Havana', marca: 'Engenho Anísio Santiago', tipo: 'Cachaça' },
+               { id: 2, nome: 'Seleta', marca: 'Seleta', tipo: 'Cachaça' },
+               { id: 3, nome: 'Weber Haus', marca: 'Weber Haus', tipo: 'Cachaça' },
+               { id: 4, nome: 'Salinas', marca: 'Salinas', tipo: 'Cachaça' }
+            ];
+
+            return (
+               <div className="container">
+                  <Cabecalho />
+                  
+                  {/* Botão que ativa o estado de exibição ao clicar */}
+                  <button onClick={() => setExibir(true)}>
+                     {exibir ? 'Atualizar Tabela' : 'Carregar Bebidas'}
+                  </button>
+
+                  {/* Renderização condicional da tabela (estilizada - Questão 5) */}
+                  {exibir && (
+                     <table>
+                        <thead>
+                           <tr>
+                              <th>Nome</th>
+                              <th>Marca</th>
+                              <th>Tipo</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {bebidas.map((item) => (
+                              <tr key={item.id}>
+                                 <td>{item.nome}</td>
+                                 <td>{item.marca}</td>
+                                 <td>{item.tipo}</td>
+                              </tr>
+                           ))}
+                        </tbody>
+                     </table>
+                  )}
+               </div>
+            );
+         }
+
+         // 2. Chamada do ReactDOM.render
+         ReactDOM.render(
+            <TabelaBebidas />,
+            document.getElementById("app")
+         );
       </script>
    </body>
 </html>
