@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>React - Tabela com createElement</title> 
+   </head>
+   <body>
+      <div id="app"></div>
+
+      <script src="libs/react.js"></script>
+      <script src="libs/react-dom.js"></script>
+      
+      <script>
+         const tabela = React.createElement('table', { border: '1', style: { width: '100%', textAlignment: 'left' } }, [
+            React.createElement('thead', { key: 'head' }, 
+               React.createElement('tr', null, [
+                  React.createElement('th', { key: 'h1' }, 'Nome'),
+                  React.createElement('th', { key: 'h2' }, 'Cargo'),
+                  React.createElement('th', { key: 'h3' }, 'Tecnologia')
+               ])
+            ),
+            React.createElement('tbody', { key: 'body' }, [
+               React.createElement('tr', { key: 'r1' }, [
+                  React.createElement('td', { key: 'c1' }, 'Maria Silva'),
+                  React.createElement('td', { key: 'c2' }, 'Desenvolvedora Frontend'),
+                  React.createElement('td', { key: 'c3' }, 'React')
+               ]),
+               React.createElement('tr', { key: 'r2' }, [
+                  React.createElement('td', { key: 'c4' }, 'João Santos'),
+                  React.createElement('td', { key: 'c5' }, 'Desenvolvedor Backend'),
+                  React.createElement('td', { key: 'c6' }, 'Node.js')
+               ])
+            ])
+         ]);
+
+         ReactDOM.render(tabela, document.getElementById('app'));
+      </script>
+   </body>
+</html>
