@@ -1,4 +1,3 @@
-// Estas são as funções secundárias que o exercício pediu (apenas export)
 export function Cabecalho() {
     return (
         <header style={{ background: '#ddd', padding: '10px' }}>
@@ -15,7 +14,6 @@ export function Rodape() {
     )
 }
 
-// Esta continua sendo a função padrão da página principal
 export default function Home(){
     return (
         <div>

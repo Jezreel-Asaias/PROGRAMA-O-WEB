@@ -1,4 +1,3 @@
-// Buscando as funções do arquivo page.js que está uma pasta acima (../)
 import { Cabecalho, Rodape } from "../page"
 
 export default function Rota1(){
